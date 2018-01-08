@@ -35,11 +35,12 @@ module.exports = {
             {
 // use:指需要什么样的loader去编译文件,这里由于源文件是.css所以选择css-loader
 // fallback:编译后用什么loader来提取css文件
+
                 test: /\.css$/,
                 use: ExtractTextPlugin.extract({
                     fallback: "style-loader",
                     use: [{
-                        loader: 'css-loader',
+                        loader: "css-loader",
                         options: {
                             minimize: true //css压缩
                         }
@@ -47,23 +48,18 @@ module.exports = {
                 }),
             },
             {
-                test: /\.scss/,
-                loader: 'style-loader!css-loader!sass-loader',
+                test: /\.less/,
+                loader: 'style-loader!css-loader!less-loader',
                 exclude: /node_modules/
             },
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
                 exclude: /node_modules/
-
             },
             {
-                test: /\.(png|jpg|gif|svg)$/,
-                loader: 'file-loader',
-                query: {
-                    limit:1024000,
-                    name: '[name].[ext]?[hash]'
-                }
+                test: /\.(jpe?g|png|gif|svg)$/i,
+                loader: "url-loader?limit=1024&name=./[name].[ext]?[hash]"
             },
             {
                 test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
@@ -132,16 +128,16 @@ module.exports = {
             // jade: 'path/to/yourfile.jade', //可以使用其他模版 need jade-loader
             // chunksSortMode: none | auto| function，默认auto； 允许指定的thunk在插入到html文档前进行排序。处理依赖
             //chunks 不写chunks默认为引用所有js文件
-            chunks: ['vue','list']
+            chunks: ['vendor','list']
         }),
     ],
 
-    resolve: {
-        alias: {
-            //这里是关于vue，官方下载的模板是vue/dist/vue.common.js,但是使用vue-router用到了template，所以记得更改
-            'vue$': 'vue/dist/vue.js'
-        }
-    },
+    // resolve: {
+    //     alias: {
+    //         //这里是关于vue，官方下载的模板是vue/dist/vue.common.js,但是使用vue-router用到了template，所以记得更改
+    //         'vue$': 'vue/dist/vue.js'
+    //     }
+    // },
     //这里是关于热加载的配置
     devServer: {
         historyApiFallback: true,
