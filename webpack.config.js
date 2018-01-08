@@ -60,7 +60,8 @@ module.exports = {
             {
                 test: /\.(png|jpg|gif|svg)$/,
                 loader: 'file-loader',
-                options: {
+                query: {
+                    limit:1024000,
                     name: '[name].[ext]?[hash]'
                 }
             },
